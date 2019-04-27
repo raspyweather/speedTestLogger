@@ -1,0 +1,17 @@
+{
+  "name": "speedtestinfluxinjector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cron": "^1.7.1",
+    "influx": "^5.0.7",
+    "speedtest-net": "^1.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "raspyweather",
+  "license": "MIT"
+}
