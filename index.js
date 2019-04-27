@@ -10,7 +10,7 @@ const measurementName = influxConfig.schema[0].measurement;
 
 const serialize = data => {
     try {
-        influx.writePoints(influxTransform(data, measurementName));
+        influx.writePoints(influxTransform(data, measurementName)).then(() => { }).catch(err => console.error(err));
     } catch (e) {
         console.error(e);
     }
