@@ -1,6 +1,6 @@
 module.exports = {
     transformForInflux: (data, measurementName) => {
-        return {
+        return [{
             measurement: measurementName,
             fields: {
                 fields: {
@@ -16,6 +16,6 @@ module.exports = {
                     lon: data !== undefined ? data.server.lon : -1
                 }
             }
-        };
+        }];
     }
 };
