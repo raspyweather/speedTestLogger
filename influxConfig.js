@@ -11,9 +11,9 @@ module.exports = {
         fields: {
             success: Influx.FieldType.BOOLEAN,
 
-            pingInMs: Influx.FieldType.INTEGER,
-            downInMbps: Influx.FieldType.FLOAT,
-            upInMbps: Influx.FieldType.FLOAT,
+            ping: Influx.FieldType.INTEGER,
+            down: Influx.FieldType.FLOAT,
+            up: Influx.FieldType.FLOAT,
 
             distance: Influx.FieldType.FLOAT,
             lat: Influx.FieldType.FLOAT,
