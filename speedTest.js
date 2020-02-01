@@ -1,15 +1,9 @@
 const speedTest = require('speedtest-net');
 module.exports = {
-    testSpeed: () => {
-        return new Promise((resolve, reject) => {
-            const test = speedTest({ maxTime: 30000 });
+    testSpeed: () =>
+        new Promise((resolve, reject) => {
+            const test = speedTest({ maxTime: 30000, serversUrl: 'http://c.speedtest.net/speedtest-servers-static.php' });
             test.on('data', resolve);
             test.on('error', reject);
-            /* test.on('data', data => influx.writePoints(transformForInflux(data, measurementName)));
-             test.on('error', err => {
-                 influx.writePoints(transformForInflux(undefined, measurementName));
-                 console.err(err);
-             });*/
         })
-    }
 }
