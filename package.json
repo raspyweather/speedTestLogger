@@ -6,7 +6,7 @@
   "dependencies": {
     "cron": "^1.7.1",
     "influx": "^5.0.7",
-    "speedtest-net": "^1.5.1"
+    "speedtest-net": "^1.6.1"
   },
   "devDependencies": {},
   "scripts": {
