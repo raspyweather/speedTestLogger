@@ -12,7 +12,8 @@ module.exports = {
                 lon: data != null ? data.server.lon : -1
             },
             tags: {
-                serverId: data != null ? data.server.id : -1
+                serverId: data != null ? data.server.id : -1,
+                isp: data != null ? data.client.isp : null
             }
         }];
     }
