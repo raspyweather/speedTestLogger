@@ -1,11 +1,11 @@
 const Influx = require('influx');
 module.exports = {
-    host: 'localhost',
-    database: 'connectivity',
-    protocol: 'https',
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_DATABASE || 'connectivity',
+    protocol: process.env.DB_PROTOCOL || 'https',
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
-    port: 443,
+    port: parseInt(process.env.DB_PORT || '443'),
     schema: [{
         measurement: 'speedtest',
         fields: {
@@ -17,9 +17,8 @@ module.exports = {
 
             distance: Influx.FieldType.FLOAT,
             lat: Influx.FieldType.FLOAT,
-            lon: Influx.FieldType.FLOAT,
-            serverId: Influx.FieldType.STRING,
+            lon: Influx.FieldType.FLOAT
         },
-        tags: ["lat", "lon"]
+        tags: ['serverId']
     }]
 };

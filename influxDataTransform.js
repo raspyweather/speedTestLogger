@@ -3,16 +3,16 @@ module.exports = {
         return [{
             measurement: measurementName,
             fields: {
-                success: data !== undefined,
-                ping: data !== undefined ? data.server.ping : -1,
-                down: data !== undefined ? data.speeds.originalDownload : -1,
-                up: data !== undefined ? data.speeds.originalUpload : -1,
-                distance: data !== undefined ? data.server.distance : -1,
-                serverId: data !== undefined ? data.server.id : -1,
+                success: data != null,
+                ping: data != null ? data.server.ping : -1,
+                down: data != null ? data.speeds.originalDownload : -1,
+                up: data != null ? data.speeds.originalUpload : -1,
+                distance: data != null ? data.server.distance : -1,
+                lat: data != null ? data.server.lat : -1,
+                lon: data != null ? data.server.lon : -1
             },
             tags: {
-                lat: data !== undefined ? data.server.lat : -1,
-                lon: data !== undefined ? data.server.lon : -1
+                serverId: data != null ? data.server.id : -1
             }
         }];
     }
