@@ -1,16 +1,12 @@
 const cron = require('cron');
 const influxTransform = require('./influxDataTransform').transformForInflux;
-const speedTest = require('./speedTest').testSpeed;
+const speedTest = require('speedtest-net');
 
 const Influx = require('influx');
 const influxConfig = require('./influxConfig');
 
 const influx = new Influx.InfluxDB(influxConfig);
 const measurementName = influxConfig.schema[0].measurement;
-
-const write = async data => {
-    await influx.writePoints(influxTransform(data, measurementName));
-}
 
 const runTest = async () => {
     let result = null;
@@ -24,7 +20,7 @@ const runTest = async () => {
     }
 
     try {
-        await write(result);
+        await influx.writePoints(influxTransform(result, measurementName));
         console.info('successfully written to InfluxDB');
     } catch (err) {
         console.error('InfluxDB write failed!', err);
@@ -33,3 +29,5 @@ const runTest = async () => {
 
 const cronjob = new cron.CronJob(process.env.CRON_EXPR || '*/30 * * * *', runTest, null, true, 'Europe/Berlin');
 cronjob.start();
+
+speedTest({ acceptLicense: true, acceptGdpr: true }).then(() => {}).catch(() => {});

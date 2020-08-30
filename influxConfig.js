@@ -15,12 +15,13 @@ module.exports = {
             success: Influx.FieldType.BOOLEAN,
 
             ping: Influx.FieldType.INTEGER,
+            latency: Influx.FieldType.FLOAT,
+            jitter: Influx.FieldType.FLOAT,
+            packetLoss: Influx.FieldType.FLOAT,
             down: Influx.FieldType.FLOAT,
             up: Influx.FieldType.FLOAT,
 
-            distance: Influx.FieldType.FLOAT,
-            lat: Influx.FieldType.FLOAT,
-            lon: Influx.FieldType.FLOAT
+            resultId: Influx.FieldType.STRING
         },
         tags: ['serverId', 'isp']
     }]
