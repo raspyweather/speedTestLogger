@@ -1,6 +1,6 @@
 const cron = require('cron');
 const influxTransform = require('./influxDataTransform').transformForInflux;
-const speedTest = require('./speedTest').testSpeed;
+const speedTest = require('speedtest-net');
 
 const Influx = require('influx');
 const influxConfig = require('./influxConfig');
@@ -8,18 +8,26 @@ const influxConfig = require('./influxConfig');
 const influx = new Influx.InfluxDB(influxConfig);
 const measurementName = influxConfig.schema[0].measurement;
 
-const serialize = data => {
+const runTest = async () => {
+    let result = null;
     try {
-        influx.writePoints(influxTransform(data, measurementName)).then(() => { }).catch(err => console.error(err));
-    } catch (e) {
-        console.error(e);
+        console.info('running speedtest...');
+        result = await speedTest();
+        console.info('result:', result);
+    }
+    catch (err) {
+        console.error('speed test failed!', err);
+    }
+
+    try {
+        await influx.writePoints(influxTransform(result, measurementName));
+        console.info('successfully written to InfluxDB');
+    } catch (err) {
+        console.error('InfluxDB write failed!', err);
     }
 }
-const runTest = () =>
-    speedTest().then(serialize).catch(err => {
-        console.error(err);
-        serialize();
-    });
 
-const cronjob = new cron.CronJob('*/30 * * * *', runTest, null, true, 'Europe/Berlin');
+const cronjob = new cron.CronJob(process.env.CRON_EXPR || '*/30 * * * *', runTest, null, true, 'Europe/Berlin');
 cronjob.start();
+
+speedTest({ acceptLicense: true, acceptGdpr: true }).then(() => {}).catch(() => {});

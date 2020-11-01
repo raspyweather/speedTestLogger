@@ -1,18 +1,26 @@
 module.exports = {
     transformForInflux: (data, measurementName) => {
+        if(data == null){
+            return [{
+                success: false
+            }];
+        }
+
         return [{
             measurement: measurementName,
             fields: {
-                success: data !== undefined,
-                ping: data !== undefined ? data.server.ping : -1,
-                down: data !== undefined ? data.speeds.originalDownload : -1,
-                up: data !== undefined ? data.speeds.originalUpload : -1,
-                distance: data !== undefined ? data.server.distance : -1,
-                serverId: data !== undefined ? data.server.id : -1,
+                success: true,
+                ping: Math.round(data.ping.latency),
+                latency: data.ping.latency,
+                jitter: data.ping.jitter,
+                packetLoss: data.packetLoss,
+                down: data.download.bandwidth,
+                up: data.upload.bandwidth,
+                resultId: data.resultId
             },
             tags: {
-                lat: data !== undefined ? data.server.lat : -1,
-                lon: data !== undefined ? data.server.lon : -1
+                serverId: data.server.id,
+                isp: data.isp
             }
         }];
     }

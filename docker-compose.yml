@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  speed-test-logger:
+    image: speed-test-logger
+    build: ./
+    environment:
+      - "DB_HOST=localhost"
+      - "DB_PROTOCOL=http"
+      - "DB_PORT=80"
+      - "DB_DATABASE=speedtest"
+      - "CRON_EXPR=0 * * * *"
+      #- "DB_USER=localhost"
+      #- "DB_PASS=localhost"
