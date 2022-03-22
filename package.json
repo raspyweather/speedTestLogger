@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "cron": "^1.7.1",
-    "influx": "^5.0.7",
-    "speedtest-net": "^2.1.1"
+    "cron": "^1.8.2",
+    "influx": "^5.8.0",
+    "speedtest-net": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
